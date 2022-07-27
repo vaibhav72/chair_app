@@ -20,7 +20,7 @@ class ChairValueCubit extends Cubit<ChairValueState> {
     int nextIndex = 0;
     log("Timer Started");
     if (timer != null) timer!.cancel();
-    timer = Timer.periodic(Duration(seconds: 2), (timer) {
+    timer = Timer.periodic(const Duration(seconds: 2), (timer) {
       if (contestants.length == 1) {
         timer.cancel();
         emit(ChairNewValue(
@@ -38,19 +38,19 @@ class ChairValueCubit extends Cubit<ChairValueState> {
           log("currentIndx $currentIndex nextIndex $nextIndex lenght ${contestants.length}");
         } else {
           log(contestants.toString());
-          if (currentIndex > contestants.length) {
-            currentIndex = contestants.length - 1;
-          }
+
           // log("currentIndx $currentIndex nextIndex $nextIndex lenght ${contestants.length}");
-          int prevIndex = currentIndex;
-          currentIndex = ((currentIndex + nextIndex) % (contestants.length));
+          currentIndex = ((currentIndex +
+                  nextIndex -
+                  (contestants.length - currentIndex)) %
+              (contestants.length));
 
           log("currentIndx $currentIndex nextIndex $nextIndex lenght ${contestants.length}");
         }
         emit(ChairNewValue(currentList: prevList, skipValue: value));
-        log(prevList.contains(value).toString());
+
         Future.delayed(
-            Duration(
+            const Duration(
               milliseconds: 1000,
             ), () {
           emit(ChairNewValue(currentList: contestants, skipValue: value));

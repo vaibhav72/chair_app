@@ -15,7 +15,8 @@ class _GameRoomScreenState extends State<GameRoomScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ChairValueCubit(
-          totalCount: 10, contestants: List.generate(10, (index) => index + 1))
+          totalCount: 100,
+          contestants: List.generate(100, (index) => index + 1))
         ..getValues(),
       child: BlocConsumer<ChairValueCubit, ChairValueState>(
         listener: (context, state) {
